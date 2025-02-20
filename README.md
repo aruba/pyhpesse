@@ -107,6 +107,84 @@ or
 
 # Further Usage Examples
 
-The examples below all exclude importing the module and creating the login variable. This is described directly below. Note, these are just a few examples, there are many API commands available within the SDK.
+## Make New Tunnel
+This script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
 
-## TBC
+```python 
+from pyhpesse import *
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Token"
+#######################
+
+# Make Tunnel Parameters
+#######################
+locationName = "YourLocationName"
+tunnelAuthenticationID = "IPAddressOrFQDN"
+tunnelAuthenticationPsk = "SecretPassword"
+tunnelName = "YourTunnelName"
+#######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+
+# Looks for existing location name and gets the location ID
+locationID = ""
+locations = AdminApi.get_locations(login, pagenumber=1, pagesize=10)
+for location in locations["data"]:
+    if location["name"] == locationName:
+        locationID = location["id"]
+        print("Existing Location Used:", locationName)
+
+# Makes a new location if it does not already exist and gets the location ID
+if not locationID:
+    newLocation = {"name": locationName}
+    print("New Location:", AdminApi.new_locations(login, body=newLocation))
+    updatedLocations = AdminApi.get_locations(login, pagenumber=1, pagesize=10)
+    for location in updatedLocations["data"]:
+        if location["name"] == locationName:
+            locationID = location["id"]
+
+# Creates a new tunnel using the location name's ID from above.
+if locationID:
+    newtunnel = {
+        "authenticationID": tunnelAuthenticationID,
+        "authenticationPsk": tunnelAuthenticationPsk,
+        "locationID": locationID,
+        "name": tunnelName,
+    }
+    print("New Tunnel Output: ", AdminApi.new_tunnels(login, body=newtunnel))
+```
+
+## Delete Tunnel
+```python
+from pyhpesse import *
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Token"
+#######################
+
+# Delete Tunnel Parameters
+#######################
+tunnelToDelete = "YourNameToDelete"
+#######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+gt = AdminApi.get_tunnels(login,pagenumber=1,pagesize=100)
+
+tunnelID = ""
+
+print("Start print list of Tunnels:")
+for tunnel in gt['data']:
+    print(f'Tunnel Name: {tunnel['name']}, Tunnel ID:{tunnel['id']}')
+    if tunnelToDelete == tunnel['name']:
+        tunnelID = tunnel['id']
+print("End print list of Tunnels.")
+
+if tunnelID:
+    print(f"Removing Tunnel: {tunnel['id']} associated with tunnel name {tunnelToDelete}")
+    print(AdminApi.delete_tunnels(login,id=tunnelID))
+else:
+    print("Tunnel does not exist or has already been removed")
+```
