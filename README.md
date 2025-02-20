@@ -107,7 +107,7 @@ or
 
 # Further Usage Examples
 
-## Make New Tunnel
+## Make a new Tunnel
 This script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
 
 ```python 
@@ -156,7 +156,7 @@ if locationID:
     print("New Tunnel Output: ", AdminApi.new_tunnels(login, body=newtunnel))
 ```
 
-## Delete Tunnel
+## Delete a Tunnel
 ```python
 from pyhpesse import *
 
