@@ -262,6 +262,8 @@ for result in results:
 ```
 
 ## Create New Empty Tag Groups 
+This example script creates an empty list of Tag Groups.
+
 ``` python
 from pyhpesse import *
 
