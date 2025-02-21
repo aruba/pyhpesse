@@ -105,10 +105,10 @@ To remove the Python pyhpesse package, type the following command into a command
 or  
  `pip uninstall pyhpesse `
 
-# Further Usage Examples
+# Additional Usage Examples
 
 ## Make a new Tunnel
-This script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
+This example script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
 
 ```python 
 from pyhpesse import *
@@ -157,6 +157,8 @@ if locationID:
 ```
 
 ## Delete a Tunnel
+The following example script deletes a tunnel by its name. 
+
 ```python
 from pyhpesse import *
 
@@ -167,7 +169,7 @@ apiSecretToken = "Your_Secret_Token"
 
 # Delete Tunnel Parameters
 #######################
-tunnelToDelete = "YourNameToDelete"
+tunnelToDelete = "TunnelNameToDelete"
 #######################
 
 login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
@@ -187,4 +189,72 @@ if tunnelID:
     print(AdminApi.delete_tunnels(login,id=tunnelID))
 else:
     print("Tunnel does not exist or has already been removed")
+```
+## Extract data from SSE
+This script will export the following information from SSE: application groups, applications, custom ip categories, connectors, connector zones, groups, ip feed category, locations, ssl exclusions, tunnels and users. 
+All the extracted data will be exported to csv and will exist in a csv folder where the script is executed. As this is an example script, it will only return upto 500 enteries per page (pagesize). If you have more than 500 enteries, you will need to script accordingly by adjusting the pagenumber value. 
+
+``` python
+from pyhpesse import *
+import csv
+import os
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Token"
+#######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+
+pageSize=500
+
+results={}
+results["applicationgroups"]=AdminApi.get_applicationgroups(login,pagenumber=1,pagesize=pageSize)
+results["applications"]=AdminApi.get_applications(login,pagenumber=1,pagesize=pageSize)
+results["customipcategory"]=AdminApi.get_customipcategory(login,pagenumber=1,pagesize=pageSize)
+results["connectors"]=AdminApi.get_connectors(login,pagenumber=1,pagesize=pageSize)
+results["connectorzones"]=AdminApi.get_connectorzones(login,pagenumber=1,pagesize=pageSize)
+results["groups"]=AdminApi.get_groups(login,pagenumber=1,pagesize=pageSize)
+results["ipfeedcategory"]=AdminApi.get_ipfeedcategory(login,pagenumber=1,pagesize=pageSize)                                            
+results["locations"]=AdminApi.get_locations(login,pagenumber=1,pagesize=pageSize)
+results["sslexclusions"]=AdminApi.get_sslexclusions(login,pagenumber=1,pagesize=pageSize)
+results["tunnels"]=AdminApi.get_tunnels(login,pagenumber=1,pagesize=pageSize)
+results["users"]=AdminApi.get_users(login,pagenumber=1,pagesize=pageSize)
+
+def export_to_csv(data, file_name, sub_folder="csv"):
+    """
+    Exports the data to a CSV file. Parameters are described below
+    
+    :param The data to be exported (expected to be a dictionary with an 'data' key).
+    :param file_name: The name of the CSV file to create.
+    :param sub_folder: The subfolder where the CSV file will be saved.
+    """
+
+    if 'data' in data and data['data']:
+        items = data['data']
+    else:
+        print(f"The 'data' list is empty for {file_name}. No CSV file will be created.")
+        return
+
+    headers = items[0].keys()
+
+    if not os.path.exists(sub_folder):
+        os.makedirs(sub_folder)
+
+    file_name = f"{file_name}.csv"
+    file_path = os.path.join(sub_folder, file_name)
+
+    with open(file_path, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=headers)
+
+        writer.writeheader()
+
+        for item in items:
+            writer.writerow(item)
+
+        print(f"Data has been exported to {file_path}")
+
+for result in results:
+    export_to_csv(data=results[result],file_name=result,sub_folder="csv")
+                   
 ```
