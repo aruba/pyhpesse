@@ -1,10 +1,16 @@
 # pyhpesse
 ## HPE Aruba Networking Security Service Edge (SSE) SDK
-This package has been developed in Python v3.9 to utilise the full functionality of the HPE Aruba Networking Security Service Edge (SSE) API environment. Each available REST API command is available for use in this module. All responses from HPE Aruba Networking Security Service Edge (SSE) API are in JSON format (converted into a Python dictionary object). Any changes with the API are logged within the Audit Log.
+This package has been developed in Python v3.9 to utilise the full functionality of the HPE Aruba Networking Security Service Edge (SSE) API environment. Each available REST API command is available for use in this module. All responses from HPE Aruba Networking Security Service Edge (SSE) API are in JSON format (converted into a Python dictionary object). Any changes with the API are logged within the Audit Log. 
+
+When updates are made to the SSE API environment, the python package will be updatd in due course. You may review the changes in the [release notes](RELEASE-NOTES.md) file.
 
 This package has been uploaded to https://pypi.org/ and is also available to install via https://github.com/aruba/pyhpesse. 
 These instructions will also available at https://developer.arubanetworks.com/ in due course.
 Installation instructions and usage instructions are also provided below. 
+
+> [!Note]  
+> Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change.
+
 
 ## Available API Categories  
 The following describes the available top level functionality of the HPE Aruba Networking Security Service Edge (SSE) SDK API available within this Python Package. 
@@ -69,7 +75,10 @@ Using client credentials
 login = HPESecureServiceEdgeApiLogin(api_token="your API Token","verify_ssl=False)
 ```
 
-Find an API you want to use, by prefixing  `AdminApi.`  in your IDE and Intellisense will show the available APIs available. Each of the top level API category names are available as a module. 
+> [!WARNING]  
+> Never expose your credentials directly in your scripts. The above is just an example for completeness. 
+
+Find an API you want to use, by prefixing  `AdminApi.`  in your IDE and Intellisense will show the available APIs. Each of the top level API category names are available within the module. 
 
 The example below prints the status of the SSE Connectors. You must pass in the login variable to execute to function correctly.
 
@@ -108,6 +117,9 @@ or
 # Additional Usage Examples
 
 The following section of the readme contains a few example scripts. There are many different ways to script and also many different available functions within the SSE API which is always expanding. 
+
+> [!WARNING]  
+> Never expose your credentials directly in your scripts. The below examples are just examples for completeness. 
 
 ## Make a new Tunnel
 This example script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
