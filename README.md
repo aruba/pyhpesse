@@ -1,6 +1,6 @@
 # pyhpesse
 ## HPE Aruba Networking Security Service Edge (SSE) SDK
-This package has been developed in Python v3.9 to utilise the full functionality of the HPE Aruba Networking Security Service Edge (SSE) API environment. Each available REST API command is available for use in this module. All responses from HPE Aruba Networking Security Service Edge (SSE) API are in JSON format (converted into a Python dictionary object). Any changes  with the API are logged within the Audit Log.
+This package has been developed in Python v3.9 to utilise the full functionality of the HPE Aruba Networking Security Service Edge (SSE) API environment. Each available REST API command is available for use in this module. All responses from HPE Aruba Networking Security Service Edge (SSE) API are in JSON format (converted into a Python dictionary object). Any changes with the API are logged within the Audit Log.
 
 This package has been uploaded to https://pypi.org/ and is also available to install via https://github.com/aruba/pyhpesse. 
 These instructions will also available at https://developer.arubanetworks.com/ in due course.
@@ -106,6 +106,8 @@ or
  `pip uninstall pyhpesse `
 
 # Additional Usage Examples
+
+The following section of the readme contains a few example scripts. There are many different ways to script and also many different available functions within the SSE API which is always expanding. 
 
 ## Make a new Tunnel
 This example script makes a new tunnel based on parameters below and if the location does not exist, it will create it.
@@ -257,4 +259,26 @@ def export_to_csv(data, file_name, sub_folder="csv"):
 for result in results:
     export_to_csv(data=results[result],file_name=result,sub_folder="csv")
                    
+```
+
+## Create New Empty Tag Groups 
+``` python
+from pyhpesse import *
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Key"
+#######################
+
+## Parameters - List of Tags to Add 
+######################
+listOfTags=['TagGroup1','TagGroup2', ]
+######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+for tag in listOfTags:
+    tags = {"name": tag}
+    newtags = AdminApi.new_applicationgroups(login, body=tags)
+    print(f'Adding new Application Group. Output Is:{newtags}')
+
 ```
