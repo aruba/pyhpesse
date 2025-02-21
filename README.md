@@ -2,7 +2,7 @@
 ## HPE Aruba Networking Security Service Edge (SSE) SDK
 This package has been developed in Python v3.9 to utilise the full functionality of the HPE Aruba Networking Security Service Edge (SSE) API environment. Each available REST API command is available for use in this module. All responses from HPE Aruba Networking Security Service Edge (SSE) API are in JSON format (converted into a Python dictionary object). Any changes with the API are logged within the Audit Log. 
 
-When updates are made to the SSE API environment, the python package will be updatd in due course. You may review the changes in the [release notes](RELEASE-NOTES.md) file.
+When updates are made to the SSE API environment, the python package will be updated in due course. You may review the changes in the [release notes](RELEASE-NOTES.md) file.
 
 This package has been uploaded to https://pypi.org/ and is also available to install via https://github.com/aruba/pyhpesse. 
 These instructions will also available at https://developer.arubanetworks.com/ in due course.
