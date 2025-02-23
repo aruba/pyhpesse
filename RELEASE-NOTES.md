@@ -10,4 +10,4 @@ This document contains high level documented changes to the pyhpesse package.
 
 ## Version 1.0.2 (05/02/2025) 
 1. Updated adminapi class name to AdminApi (PEP8 Standards) 
-2. Renamed class HPESSEAPILogin to HPESecureServiceEdgeApiLogin (P8P Standards) 
+2. Renamed class HPESSEAPILogin to HPESecureServiceEdgeApiLogin (PEP8 Standards) 
