@@ -8,27 +8,27 @@ This package has been uploaded to https://pypi.org/ and is also available to ins
 These instructions will also available at https://developer.arubanetworks.com/ in due course.
 Installation instructions and usage instructions are also provided below. 
 
-> [!Note]  
-> Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change.
-
+> [!Warning]  
+> _This package comes without any warranties and should be used at your own risk._
 
 ## Available API Categories  
 The following describes the available top level functionality of the HPE Aruba Networking Security Service Edge (SSE) SDK API available within this Python Package. 
-- API Service - ApplicationGroups
+- API Service - Application Groups
 - API Service - Applications
 - API Service - Connectors
-- API Service - ConnectorZones
-- API Service - CustomIpCategory
+- API Service - Connector Zones
+- API Service - Custom IP Categories
 - API Service - Groups
-- API Service - IpFeedCategory
+- API Service - IP Feed Categories
 - API Service - Locations
-- API Service - SslExclusions
-- API Service - SubLocations
+- API Service - SSL Exclusions
+- API Service - Sub Locations
 - API Service - Tunnels
 - API Service - Users
-- API Service - WebCategory
+- API Service - Web Categories
 
-_This package comes without any warranties and should be used at your own risk._
+> [!Note]  
+> Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change.
 
 ## HPE Aruba Networking Security Service Edge (SSE) SDK API Readiness 
 These steps list what is required on the HPE Aruba Networking Security Service Edge Management Console:
