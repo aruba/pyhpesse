@@ -72,7 +72,7 @@ Create a object to login into the API. The login object needs to be passed to us
 Using client credentials
 
 ```python
-login = HPESecureServiceEdgeApiLogin(api_token="your API Token","verify_ssl=False)
+login = HPESecureServiceEdgeApiLogin(api_token="your API Token")
 ```
 
 > [!WARNING]  
@@ -80,12 +80,21 @@ login = HPESecureServiceEdgeApiLogin(api_token="your API Token","verify_ssl=Fals
 
 Find an API you want to use, by prefixing  `AdminApi.`  in your IDE and Intellisense will show the available APIs. Each of the top level API category names are available within the module. 
 
-The example below prints the status of the SSE Connectors. You must pass in the login variable to execute to function correctly.
+The example below prints upto 500 local SSE users. You must pass in the login variable along with the pagenumber and pagesize to execute to function correctly.
 
 ```python
-print(AdminApi.status_connectors(login)) 
+print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
 ```
 
+> [!Note]  
+> The pagenumber and pagesize is required for all get requests only. The maximum results the pagesize will return is 500. If you have more than 500 entries, you will need to script accordingly by adjusting the pagenumber value. If there is less than 500 results, set the pagenumber as 1.  
+
+## Working Example
+```python
+from pyhpesse import *
+login = HPESecureServiceEdgeApiLogin(api_token="your API Token")
+print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
+```
 
 # Help
 
