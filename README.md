@@ -80,20 +80,36 @@ login = HPESecureServiceEdgeApiLogin(api_token="your API Token")
 
 Find an API you want to use, by prefixing  `AdminApi.`  in your IDE and Intellisense will show the available APIs. Each of the top level API category names are available within the module. 
 
-The example below prints upto 500 local SSE users. You must pass in the login variable along with the pagenumber and pagesize to execute to function correctly.
+The example below prints upto 500 local SSE users. You must pass in the login variable along with the pagenumber and pagesize to return the data of SSE users. 
 
 ```python
 print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
 ```
 
-> [!Note]  
-> The pagenumber and pagesize is required for all get requests only. The maximum results the pagesize will return is 500. If you have more than 500 entries, you will need to script accordingly by adjusting the pagenumber value. If there is less than 500 results, set the pagenumber as 1.  
-
 ## Working Example
+Below is an example of the initial usage instructions, which includes a console print to display the result.
 ```python
 from pyhpesse import *
 login = HPESecureServiceEdgeApiLogin(api_token="your API Token")
 print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
+```
+
+## Optional Function for retrieving Token from a file
+You can use a function to retrieve an API token from a file in the working directory, rather than specifying the token configuration directly in the code. Follow these steps:
+1. Create a file in the working directory, for example called 'token-sse.token'
+2. Within the file, use the JSON structure and create an key name called access_token and within the key value, write the api token value. {"access_token":"YourSecretToken"}
+3. Retrieve the API token from the file by creating an object for apiSecretToken using the get_token_from_file utility function from the Utils_SSE class and then use the apiSecretToken to initialize the HPESecureServiceEdgeApiLogin object, instead of directly specifying the API key. An example is provided below. 
+```python
+from pyhpesse import *
+apiSecretToken = Utils_SSE.get_token_from_file("token-sse.token")
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+```
+
+## Optional Parameters
+The following detail the additional available parameters within the HPESecureServiceEdgeApiLogin class. The parameters have default values and are not required to be define within the HPESecureServiceEdgeApiLogin object. 
+```python
+verify_ssl = False, #Disable SSL if required. By default, verify SSL is enabled.
+url = "https://admin-api.axissecurity.com" #Modify the default URL for Axis API Services.
 ```
 
 # Help
