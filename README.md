@@ -106,7 +106,7 @@ login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
 ```
 
 ## Optional Parameters
-The following detail the additional available parameters within the HPESecureServiceEdgeApiLogin class. The parameters have default values and are not required to be define within the HPESecureServiceEdgeApiLogin object. 
+The following detail the additional available parameters within the HPESecureServiceEdgeApiLogin class. The parameters have default values and are not required to be defined within the HPESecureServiceEdgeApiLogin object. 
 ```python
 verify_ssl = False, #Disable SSL if required. By default, verify SSL is enabled.
 url = "https://admin-api.axissecurity.com" #Modify the default URL for Axis API Services.
