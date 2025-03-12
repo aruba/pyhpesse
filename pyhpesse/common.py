@@ -1,3 +1,6 @@
+# (C) Copyright 2019-2025 Hewlett Packard Enterprise Development LP.
+# Apache License 2.0
+
 import json
 import requests
 import urllib.parse, urllib3
