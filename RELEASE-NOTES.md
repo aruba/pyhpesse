@@ -13,5 +13,6 @@ This document contains high level documented changes to the pyhpesse package.
 2. Renamed class HPESSEAPILogin to HPESecureServiceEdgeApiLogin (P8P Standards) 
 
 ## Version 1.0.3 (11/03/2025) 
-1. Added in function to object token from file.
+1. Added in function to create token object from file.
 2. Added copywrite licence details to py module files.
+
