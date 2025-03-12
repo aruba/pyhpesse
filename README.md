@@ -94,11 +94,14 @@ login = HPESecureServiceEdgeApiLogin(api_token="your API Token")
 print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
 ```
 
-## Optional Function for retrieving Token from a file
-You can use a function to retrieve an API token from a file in the working directory, rather than specifying the token configuration directly in the code. Follow these steps:
+## Optional Function for Retrieving Token from a File
+You can use a function to retrieve an API token from a file in the working directory, rather than specifying the token configuration directly in the code. This allows easy reuse of the token file across your scripts which are located in the same working directory. Follow these steps to retrieve the token from a file:
 1. Create a file in the working directory, for example called 'token-sse.token'
-2. Within the file, use the JSON structure and create an key name called access_token and within the key value, write the api token value. {"access_token":"YourSecretToken"}
-3. Retrieve the API token from the file by creating an object for apiSecretToken using the get_token_from_file utility function from the Utils_SSE class and then use the apiSecretToken to initialize the HPESecureServiceEdgeApiLogin object, instead of directly specifying the API key. An example is provided below. 
+2. Within the file, use the JSON structure and create an key name called access_token and within the key value, write the API Token value.
+```json
+{"access_token":"YourSecretToken"}
+```
+4. Retrieve the API Token from the file by creating an object for apiSecretToken using the get_token_from_file utility function from the Utils_SSE class and then use the apiSecretToken to initialize the HPESecureServiceEdgeApiLogin object, instead of directly specifying the API key directly in the script. An example is provided below. 
 ```python
 from pyhpesse import *
 apiSecretToken = Utils_SSE.get_token_from_file("token-sse.token")
