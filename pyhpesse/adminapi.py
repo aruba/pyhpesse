@@ -1,4 +1,4 @@
-# (C) Copyright 2019-2025 Hewlett Packard Enterprise Development LP.
+# (C) Copyright 2019-2026 Hewlett Packard Enterprise Development LP.
 # Apache License 2.0
 
 from pyhpesse.common import (
@@ -22,7 +22,13 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "applications": "[string]",
+            "applications": [
+                {
+                    "id": "string",
+                    "value": "string",
+                    "type": "[Application, SaaS, Category]"
+                }
+            ],
             "name": "string",
             "id": "string"
         }
@@ -67,7 +73,13 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "applications": "[string]",
+            "applications": [
+                {
+                    "id": "string",
+                    "value": "string",
+                    "type": "[Application, SaaS, Category]"
+                }
+            ],
             "name": "string",
             "id": "string"
         }
@@ -130,7 +142,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         body={
             "enabled": True/False,
             "connectorZoneId": "string",
-            "tags": "[string]",
+            "tags": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "identityProviderId": "string",
             "networkRangeApplicationData": {
                 "dnsSearches": "[string]",
@@ -187,7 +204,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         body={
             "enabled": True/False,
             "connectorZoneId": "string",
-            "tags": "[string]",
+            "tags": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "identityProviderId": "string",
             "networkRangeApplicationData": {
                 "dnsSearches": "[string]",
@@ -270,6 +292,7 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         Available Body Parameters:
         body={
             "enabled": True/False,
+            "primaryPublicIP": "string",
             "connectorZoneId": "string",
             "name": "string",
             "id": "string"
@@ -316,6 +339,7 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         Available Body Parameters:
         body={
             "enabled": True/False,
+            "primaryPublicIP": "string",
             "connectorZoneId": "string",
             "name": "string",
             "id": "string"
@@ -409,7 +433,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "connectors": "[string]",
+            "connectors": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "description": "string",
             "name": "string",
             "id": "string"
@@ -455,7 +484,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "connectors": "[string]",
+            "connectors": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "description": "string",
             "name": "string",
             "id": "string"
@@ -626,6 +660,120 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
             url_path = url_path.replace("{" + item + "}", dict_path[item])
         return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="delete")
 
+    # API Service - DomainNameCertificates
+    def new_domainnamecertificates(self, body):
+        """
+        Operation: Create a New Domain Name Certificate
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        Parameter Name: body, Required: Mandatory, Type: Object, Description: Body Parameters
+        
+        Available Body Parameters:
+        body={
+            "commonName": "string",
+            "validFrom": "string",
+            "validUntil": "string",
+            "certificateThumbprint": "string",
+            "originalFileName": "string",
+            "certificateIssuedBy": "string",
+            "certificateIssuedTo": "string",
+            "certificateChain": [
+                "string"
+            ],
+            "certificateSerialNumber": "string",
+            "subjectAlternativeName": [
+                "string"
+            ],
+            "certificatePassword": "string",
+            "certificateBase64": "string",
+            "description": "string",
+            "name": "string",
+            "id": "string"
+        }
+
+        Mandatory Body Parameters: name
+        """
+        if body is None:
+            raise ValueError("The 'body' parameter is mandatory and cannot be None.")
+        if not isinstance(body, dict):
+            raise ValueError("The 'body' parameter must be a dictionary.")
+        url_path = "/api/v1.0/DomainNameCertificates"
+        body = _remove_empty_keys(keys=body)
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, query=body, method="post")
+
+    # API Service - DomainNameCertificates
+    def get_domainnamecertificates(self, pagenumber, pagesize):
+        """
+        Operation: Get Domain Name Certificates
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        Parameter Name: pagenumber, Required: Optional, Type: integer, Description: none supplied
+
+        Parameter Name: pagesize, Required: Optional, Type: integer, Description: none supplied
+
+        """
+        url_path = "/api/v1.0/DomainNameCertificates"
+        dict_query ={'pagenumber': pagenumber, 'pagesize': pagesize}
+        url_path = _generate_parameterised_url(parameters=dict_query, url=url_path)
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="get")
+
+    # API Service - DomainNameCertificates
+    def getbyid_domainnamecertificates(self, id):
+        """
+        Operation: Get Domain Name Certificate by ID
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        Parameter Name: id, Required: Mandatory, Type: string, Description: none supplied
+
+        """
+        url_path = "/api/v1.0/DomainNameCertificates/{id}"
+        dict_path = {'id': id}
+        for item in dict_path:
+            url_path = url_path.replace("{" + item + "}", dict_path[item])
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="get")
+
+    # API Service - DomainNameCertificates
+    def delete_domainnamecertificates(self, id):
+        """
+        Operation: Delete Domain Name Certificate by ID
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        Parameter Name: id, Required: Mandatory, Type: string, Description: none supplied
+
+        """
+        url_path = "/api/v1.0/DomainNameCertificates/{id}"
+        dict_path = {'id': id}
+        for item in dict_path:
+            url_path = url_path.replace("{" + item + "}", dict_path[item])
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="delete")
+
+    # API Service - DomainNameCertificates
+    def replace_domainnamecertificates(self, certid, body):
+        """
+        Operation: Replace a Domain Name Certificate
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        Parameter Name: certid, Required: Mandatory, Type: string, Description: none supplied
+
+        Parameter Name: body, Required: Mandatory, Type: Object, Description: Body Parameters
+
+        """
+        if body is None:
+            raise ValueError("The 'body' parameter is mandatory and cannot be None.")
+        if not isinstance(body, dict):
+            raise ValueError("The 'body' parameter must be a dictionary.")
+        url_path = "/api/v1.0/DomainNameCertificates/{certId}/replace"
+        dict_path = {'certid': certid}
+        for item in dict_path:
+            url_path = url_path.replace("{" + item + "}", dict_path[item])
+        body = _remove_empty_keys(keys=body)
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, query=body, method="post")
+
     # API Service - Groups
     def new_groups(self, body):
         """
@@ -637,7 +785,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "users": "[string]",
+            "users": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "description": "string",
             "name": "string",
             "id": "string"
@@ -683,7 +836,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "users": "[string]",
+            "users": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "description": "string",
             "name": "string",
             "id": "string"
@@ -733,6 +891,17 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         for item in dict_path:
             url_path = url_path.replace("{" + item + "}", dict_path[item])
         return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="delete")
+
+    # API Service - Health
+    def get_health(self):
+        """
+        Operation: Health Check
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        """
+        url_path = "/api/v1.0/Health"
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="get")
 
     # API Service - IpFeedCategory
     def new_ipfeedcategory(self, body):
@@ -854,6 +1023,17 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
             url_path = url_path.replace("{" + item + "}", dict_path[item])
         return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="delete")
 
+    # API Service - IpSecLocations
+    def get_ipseclocations(self):
+        """
+        Operation: Get IPSec PoP Locations
+
+        Parameter Name: login, Required: Mandatory, Type: object, Description: Login Variable associated with self
+
+        """
+        url_path = "/api/v1.0/pops/ipsec"
+        return HPESecureServiceEdgeApiLogin._send_request(self, url=url_path, method="get")
+
     # API Service - Locations
     def new_locations(self, body):
         """
@@ -865,8 +1045,18 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "subLocations": "[string]",
-            "tunnels": "[string]",
+            "subLocations": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
+            "tunnels": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "name": "string",
             "id": "string"
         }
@@ -943,8 +1133,18 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
         
         Available Body Parameters:
         body={
-            "subLocations": "[string]",
-            "tunnels": "[string]",
+            "subLocations": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
+            "tunnels": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "name": "string",
             "id": "string"
         }
@@ -1343,7 +1543,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
             "lastName": "string",
             "enabled": True/False,
             "expiration": "string",
-            "groups": "[string]",
+            "groups": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "sshPrivateKey": "string",
             "hasSshPrivateKey": True/False
         }
@@ -1392,7 +1597,12 @@ class AdminApi(HPESecureServiceEdgeApiLogin):
             "lastName": "string",
             "enabled": True/False,
             "expiration": "string",
-            "groups": "[string]",
+            "groups": [
+                {
+                    "id": "string",
+                    "value": "string"
+                }
+            ],
             "sshPrivateKey": "string",
             "hasSshPrivateKey": True/False
         }

@@ -16,3 +16,8 @@ This document contains high level documented changes to the pyhpesse package.
 1. Added in function to create token object from file.
 2. Added copywrite licence details to py module files.
 
+## Version 1.0.4 (28/09/2026) 
+1. Pulled in API latest changes (Domain Name Certificates, Health & IPSEC Locations)
+2. Added in customRequest into the Utils_SSE class to execute custom API SSE requests using the SDK
+3. Minor logic changes to common.py
+4. Updated README.md with additional examples and additional content. 

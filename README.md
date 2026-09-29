@@ -28,7 +28,7 @@ The following describes the available top level functionality of the HPE Aruba N
 - API Service - Web Categories
 
 > [!Note]  
-> Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change.
+> Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change. 
 
 ## HPE Aruba Networking Security Service Edge (SSE) SDK API Readiness 
 These steps list what is required on the HPE Aruba Networking Security Service Edge Management Console:
@@ -86,6 +86,12 @@ The example below prints upto 500 local SSE users. You must pass in the login va
 print(AdminApi.get_users(login,pagenumber=1,pagesize=500))
 ```
 
+When making any changes to the platform, you must commit the changes otherwise you must commit the changes via web interface. To commit the changes, use the following example. 
+
+```python
+print(AdminApi.commit_commitchanges(login))
+```
+
 ## Working Example
 Below is an example of the initial usage instructions, which includes a console print to display the result.
 ```python
@@ -113,6 +119,7 @@ The following detail the additional available parameters within the HPESecureSer
 ```python
 verify_ssl = False, #Disable SSL if required. By default, verify SSL is enabled.
 url = "https://admin-api.axissecurity.com" #Modify the default URL for Axis API Services.
+timeout = 15 #Modify the default web request timeout.
 ```
 
 # Help
@@ -196,6 +203,9 @@ if locationID:
         "name": tunnelName,
     }
     print("New Tunnel Output: ", AdminApi.new_tunnels(login, body=newtunnel))
+
+# Commits your changes 
+print(AdminApi.commit_commitchanges(login))
 ```
 
 ## Delete a Tunnel
@@ -231,6 +241,9 @@ if tunnelID:
     print(AdminApi.delete_tunnels(login,id=tunnelID))
 else:
     print("Tunnel does not exist or has already been removed")
+
+# Commits your changes 
+print(AdminApi.commit_commitchanges(login))
 ```
 ## Extract data from SSE
 This script will export the following information from SSE: application groups, applications, custom ip categories, connectors, connector zones, groups, ip feed category, locations, ssl exclusions, tunnels and users. 
@@ -323,4 +336,39 @@ for tag in listOfTags:
     newtags = AdminApi.new_applicationgroups(login, body=tags)
     print(f'Adding new Application Group. Output Is:{newtags}')
 
+# Commits your changes 
+print(AdminApi.commit_commitchanges(login))
+```
+
+## Execute a custom request to get users of the SSE platform. 
+This example uses the Utils.SSE class to execute a customRequest to the API to obtain a list of users. This is particular useful when using the API using a custom URL
+
+``` python
+from pyhpesse import *
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Key"
+#######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+print(Utils_SSE.customRequest(login,urlPath="/api/v1.0/Users",method="get",pagenumber=1,pagesize=10 ))
+```
+## Execute a custom request to modify a user of the SSE platform. 
+This example uses the Utils.SSE class to execute a customRequest to the API to modify an existing user. This is particular useful when using the API using a custom URL
+
+``` python
+from pyhpesse import *
+
+# Your API Key
+#######################
+apiSecretToken = "Your_Secret_Key"
+#######################
+
+login = HPESecureServiceEdgeApiLogin(api_token=apiSecretToken)
+modifyUser = { "userName": "example@example.com", "email": "example@example.com", "firstName": "example", "lastName": "example", "enabled": False, }
+print(Utils_SSE.customRequest(login,urlPath="/api/v1.0/Users/28aaa1df-4b59-49ed-b5b0-c3f2b1596c24",method="put",body=modifyUser ))
+
+# Commits your changes 
+print(AdminApi.commit_commitchanges(login))
 ```
