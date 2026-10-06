@@ -26,6 +26,8 @@ The following describes the available top level functionality of the HPE Aruba N
 - API Service - Tunnels
 - API Service - Users
 - API Service - Web Categories
+- API Service - Domain Name Certificates
+- API Service - Health 
 
 > [!Note]  
 > Some API functions are limited releases (tunnels, locations, tags, applications) and functionality may be limited and change. 
